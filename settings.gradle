@@ -8,3 +8,4 @@ dependencyResolutionManagement {
 }
 rootProject.name = "AndroidFrameWorkDemo"
 include ':app'
+include ':RxJava'
