@@ -5,15 +5,17 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
-import io.reactivex.rxjava3.core.Observable
-import io.reactivex.rxjava3.core.ObservableEmitter
-import io.reactivex.rxjava3.core.ObservableOnSubscribe
-import io.reactivex.rxjava3.core.Observer
+import io.reactivex.rxjava3.core.*
 import io.reactivex.rxjava3.disposables.Disposable
 import io.reactivex.rxjava3.disposables.DisposableContainer
 import io.reactivex.rxjava3.functions.Consumer
+import io.reactivex.rxjava3.functions.Function
 import io.reactivex.rxjava3.schedulers.Schedulers
 import io.reactivex.rxjava3.subjects.PublishSubject
+import java.lang.Exception
+import java.util.concurrent.Callable
+import java.util.concurrent.Executors
+import java.util.concurrent.Future
 import java.util.concurrent.TimeUnit
 
 class RxJavaMainActivity : AppCompatActivity() {
@@ -145,4 +147,145 @@ class RxJavaMainActivity : AppCompatActivity() {
         subject.subscribe(subscribe_2)
 
     }
+
+
+    fun click_4(view: View) {
+        /**
+         * create: 使用一个函数从头创建一个Observable
+         */
+        /*Observable.create(ObservableOnSubscribe<Int> {
+            try {
+                if (!it.isDisposed) {
+                    for (i in 1..10) {
+                        it.onNext(i)
+                    }
+                    it.onComplete()
+                }
+            } catch (e: Exception) {
+                it.onError(e)
+            }
+        }).subscribe( {
+            Log.e("kris", "Next $it")
+        }, {
+            Log.e("kris", "Error $it")
+        }, {
+            Log.e("kris", "Sequence Complete")
+        })*/
+
+        /**
+         * just: 将一个或多个对象转换成发射这个或这些对象的一个observable
+         */
+        /*Observable.just("Hello just")
+            .subscribe {
+                Log.e("kris", it)
+            }
+        Observable.just(1, 2, 3, 4 , 5, 6, 7, 8, 9, 10)
+            .subscribe({
+                Log.e("kris", "Next $it")
+            }, {
+                Log.e("kris", "Error $it")
+            }, {
+                Log.e("kris", "Sequence Complete")
+            })*/
+
+        /**
+         * from: 将一个Iterable、一个Future或者一个数组转换成一个Observable
+         */
+
+        /*Observable.fromArray("hello", "from")
+            .subscribe {
+                Log.e("kris", it)
+            }
+
+        val list = ArrayList<Int>()
+        for (i in 1..10) {
+            list.add(i)
+        }
+        Observable.fromIterable(list).subscribe({
+            Log.e("kris", "Next $it")
+        }, {
+            Log.e("kris", "Error $it")
+        }, {
+            Log.e("kris", "Sequence Complete")
+        })
+
+        val executorService = Executors.newCachedThreadPool();
+        val future = executorService.submit(Callable {
+            Log.e("kris", "模拟一些耗时的任务")
+            Thread.sleep(5000)
+            return@Callable "ok"
+        })
+
+        Observable.fromFuture(future).subscribe {
+            Log.e("kris", it)
+        }
+
+        Observable.fromFuture(future, 3, TimeUnit.SECONDS)
+            .subscribe {
+                Log.e("kris", it)
+            }*/
+
+
+
+
+        /**
+         * defer: 只有当订阅者订阅时才创建Observable，为每个订阅创建一个新的Observable
+         */
+
+        /**
+         * range: 创建一个发射指定范围的整数序列的Observable
+         */
+
+        /**
+         * interval: 创建一个按照给定的时间间隔发射整数序列的Observable
+         */
+
+        /**
+         * timer: 创建一个给定的延时之后发射单个数据的Observable
+         */
+
+        /**
+         * empty: 创建一个什么都不做直接通知完成的Observable
+         */
+
+        /**
+         * error: 创建一个什么都不做直接通知错误的Observable
+         */
+
+        /**
+         * never: 创建一个不发射任何数据的Observable
+         */
+
+
+        /**
+         * repeat: 创建一个发射特定数据重复多次的Observable
+         */
+        /*Observable.just("Hello Repeat")
+            .repeat(10)
+            .subscribe {
+                Log.e("kris", "Next: $it")
+            }*/
+        /**
+         * repeatWhen不是缓存和重放原始数据Observable的数据序列，而是有条件地重新订阅和发射原来的Observable
+         */
+        /*Observable.range(0, 9).repeatWhen {
+            return@repeatWhen Observable.timer(10, TimeUnit.SECONDS)
+        }.subscribe {
+            Log.e("kris", it.toString())
+        }*/
+        /**
+         * repeatUntil表示直到某个条件就不再重复发射数据
+         */
+        val startTimeMillis = System.currentTimeMillis()
+        Observable.interval(500, TimeUnit.MILLISECONDS)
+            .take(5)
+            .repeatUntil {
+                return@repeatUntil System.currentTimeMillis() - startTimeMillis > 5000
+            }.subscribe {
+                Log.e("kris", it.toString())
+            }
+
+    }
+
+
 }

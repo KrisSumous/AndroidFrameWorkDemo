@@ -3,8 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="Coroutines/src/main/res/layout/activity_coroutines_main.xml" value="0.2671875" />
         <entry key="RxJava/src/main/res/layout/activity_main.xml" value="0.2513586956521739" />
-        <entry key="RxJava/src/main/res/layout/rxjava_activity_main.xml" value="0.23641304347826086" />
+        <entry key="RxJava/src/main/res/layout/rxjava_activity_main.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.13489583333333333" />
       </map>
     </option>
